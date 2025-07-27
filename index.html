@@ -7,8 +7,12 @@
 </head>
 <body>
   <h1>🎮 Emoji Memory Match</h1>
+  <div id="game-states" class="container">
+    <div>⏳ Timer : <span id="timer">0</span> sec </div>
+    <div>🙈 Moves : <span id="moves">0</span></div>
+  </div>
   <div id="board" class="board"></div>
-  <script src="dist/game.js"></script>
+  <script type="module" src="dist/game.js"></script>
   <button id="restartBtn">🔄 Restart</button>
 </body>
 </html>

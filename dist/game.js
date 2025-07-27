@@ -1,11 +1,36 @@
-"use strict";
+import { celebrateWin } from './celebration.js';
 const emojis = ["🤡", "🍕", "🐱", "🚀", "🌈", "🎉", "🐶", "🍩"];
 let cards = [];
 let flippedCards = [];
+let unFlippedCount = 0;
+let numMoves = 0;
+let timeInterval;
+let timeElapsed = 0;
+function incrementMoves() {
+    numMoves++;
+    document.getElementById("moves").textContent = numMoves.toString();
+}
+function startTimer() {
+    if (timeInterval)
+        return; // avoid multiple timer
+    timeInterval = setInterval(() => {
+        timeElapsed++;
+        document.getElementById("timer").textContent = timeElapsed.toString();
+    }, 1000);
+}
+function resetGameStats() {
+    flippedCards = [];
+    unFlippedCount = 2 * emojis.length;
+    numMoves = 0;
+    timeElapsed = 0;
+    document.getElementById("moves").textContent = "0";
+    document.getElementById("timer").textContent = "0";
+    timeInterval = null;
+}
 function shuffleAndCreateCards() {
     const doubled = [...emojis, ...emojis]; // ... flat merges the list
     const shuffled = doubled.sort(() => Math.random() - 0.5);
-    flippedCards = [];
+    resetGameStats();
     cards = shuffled.map((emoji, index) => ({
         id: index,
         emoji: emoji,
@@ -13,6 +38,7 @@ function shuffleAndCreateCards() {
     }));
 }
 function renderBoard() {
+    console.log('Rendering board');
     const board = document.getElementById("board");
     board.innerHTML = "";
     cards.forEach((card, index) => {
@@ -26,6 +52,7 @@ function renderBoard() {
 function flipCard(e) {
     const target = e.currentTarget;
     const index = parseInt(target.dataset.index);
+    console.log(`Clicked on card : ${index}`);
     const card = cards[index];
     if (card.matched || flippedCards.includes(target) || flippedCards.length === 2)
         return;
@@ -35,10 +62,15 @@ function flipCard(e) {
         const [first, second] = flippedCards;
         const firstCard = cards[parseInt(first.dataset.index)];
         const secondCard = cards[parseInt(second.dataset.index)];
+        incrementMoves();
         setTimeout(() => {
             if (firstCard.emoji === secondCard.emoji) {
                 firstCard.matched = true;
                 secondCard.matched = true;
+                unFlippedCount -= 2;
+                if (unFlippedCount === 0) {
+                    celebrateWin();
+                }
             }
             else {
                 first.textContent = "";
@@ -51,6 +83,7 @@ function flipCard(e) {
 function setupGame() {
     shuffleAndCreateCards();
     renderBoard();
+    startTimer();
     document.querySelectorAll(".card").forEach(card => {
         card.addEventListener("click", flipCard);
     });
