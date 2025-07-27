@@ -1,0 +1,19 @@
+{
+  "name": "emoji-mem",
+  "version": "1.0.0",
+  "description": "Emoji Match game using TypeScript and HTML.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "keywords": [],
+  "author": "Tanushree Gupta",
+  "email": "tshreegupta@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "serve": "^14.0.1"
+  }
+}
