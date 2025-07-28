@@ -1,4 +1,4 @@
-import {celebrateWin} from './celebration.js';
+import {celebrateWin, showFinalResult} from './celebration.js';
 
 interface Card{
     id: number;
@@ -13,6 +13,7 @@ let unFlippedCount: number = 0;
 let numMoves: number = 0;
 let timeInterval:any;
 let timeElapsed = 0;
+let bestMoves: number = Number.MAX_VALUE;
 
 function incrementMoves(){
     numMoves++;
@@ -84,7 +85,6 @@ function flipCard(e: Event){
         const secondCard = cards[parseInt(second.dataset.index!)];
         incrementMoves();
 
-
         setTimeout(() => {
             if(firstCard.emoji === secondCard.emoji){
                 firstCard.matched = true;
@@ -93,6 +93,10 @@ function flipCard(e: Event){
                 if(unFlippedCount === 0){
                     stopTimer();
                     celebrateWin();
+                    if(numMoves<bestMoves){
+                        bestMoves = numMoves;
+                    }
+                    showFinalResult(timeElapsed, numMoves, bestMoves);
                 }
             } else {
                 first.textContent = "";

@@ -7,12 +7,24 @@
 </head>
 <body>
   <h1>🎮 Emoji Memory Match</h1>
-  <div id="game-states" class="container">
+  <div id="game-stats" class="container">
     <div>⏳ Timer : <span id="timer">0</span> sec </div>
     <div>🙈 Moves : <span id="moves">0</span></div>
   </div>
   <div id="board" class="board"></div>
   <script type="module" src="dist/game.js"></script>
   <button id="restartBtn">🔄 Restart</button>
+  <div id="result-popup" class="modal">
+    <div id="result-content" class="modal-content">
+        <span id="close-popup" class="close">&times;</span>
+        <h2>You Won! 🎉</h2>
+        <div id="game-stats" class="container">
+          <div>Time : <span id="finalTime">0</span> sec </div>
+          <div>Move : <span id="finalMove">0</span></div>
+        </div>
+        <h2>✨ Best: <span id="bestMove">0</span> ✨</h2>
+        <!-- <button onclick="restartGame()">Play Again</button> -->
+    </div>
+  </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-import { celebrateWin } from './celebration.js';
+import { celebrateWin, showFinalResult } from './celebration.js';
 const emojis = ["🤡", "🍕", "🐱", "🚀", "🌈", "🎉", "🐶", "🍩"];
 let cards = [];
 let flippedCards = [];
@@ -6,6 +6,7 @@ let unFlippedCount = 0;
 let numMoves = 0;
 let timeInterval;
 let timeElapsed = 0;
+let bestMoves = Number.MAX_VALUE;
 function incrementMoves() {
     numMoves++;
     document.getElementById("moves").textContent = numMoves.toString();
@@ -75,6 +76,10 @@ function flipCard(e) {
                 if (unFlippedCount === 0) {
                     stopTimer();
                     celebrateWin();
+                    if (numMoves < bestMoves) {
+                        bestMoves = numMoves;
+                    }
+                    showFinalResult(timeElapsed, numMoves, bestMoves);
                 }
             }
             else {

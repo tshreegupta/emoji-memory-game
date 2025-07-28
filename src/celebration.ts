@@ -1,6 +1,5 @@
 //@ts-ignore
 import confetti from "https://cdn.skypack.dev/canvas-confetti";
-
 export function celebrateWin(){
     console.log("You Win!!")
     confetti({
@@ -10,3 +9,15 @@ export function celebrateWin(){
     });
 
 }
+
+export function showFinalResult(finalTime:number, finalMove:number, bestMoves:number) {
+    document.getElementById("result-popup")!.style.display = "block";
+    document.getElementById("finalTime")!.textContent = finalTime.toString();
+    document.getElementById("finalMove")!.textContent = finalMove.toString();
+    document.getElementById("bestMove")!.textContent = bestMoves.toString();
+
+}
+
+document.getElementById("close-popup")!.onclick = function() {
+    document.getElementById("result-popup")!.style.display = "none";
+};
