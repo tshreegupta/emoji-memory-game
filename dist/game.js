@@ -18,6 +18,10 @@ function startTimer() {
         document.getElementById("timer").textContent = timeElapsed.toString();
     }, 1000);
 }
+function stopTimer() {
+    clearInterval(timeInterval);
+    timeInterval = null;
+}
 function resetGameStats() {
     flippedCards = [];
     unFlippedCount = 2 * emojis.length;
@@ -69,6 +73,7 @@ function flipCard(e) {
                 secondCard.matched = true;
                 unFlippedCount -= 2;
                 if (unFlippedCount === 0) {
+                    stopTimer();
                     celebrateWin();
                 }
             }

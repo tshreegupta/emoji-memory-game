@@ -27,6 +27,10 @@ function startTimer(){
     }, 1000);
 
 }
+function stopTimer(){
+    clearInterval(timeInterval);
+    timeInterval = null;
+}
 function resetGameStats(){
     flippedCards = [];
     unFlippedCount = 2*emojis.length;
@@ -87,6 +91,7 @@ function flipCard(e: Event){
                 secondCard.matched = true;
                 unFlippedCount -= 2;
                 if(unFlippedCount === 0){
+                    stopTimer();
                     celebrateWin();
                 }
             } else {
